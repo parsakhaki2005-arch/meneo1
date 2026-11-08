@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17130f">
+<title>رستوران امیری | منوی دیجیتال</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#100f0d;--surface:#1c1915;--surface2:#25211b;
+ --gold:#e8b967;--gold2:#f5d69a;--text:#fffaf1;
+ --muted:#aaa197;--line:#393127;--green:#718b60;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:145px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,sans-serif}
+button,input{font-family:inherit}
+a{color:inherit;text-decoration:none}
+.hero{
+ min-height:350px;position:relative;display:flex;align-items:center;
+ justify-content:center;text-align:center;padding:55px 20px;
+ background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(16,15,13,.98)),
+ url('images/restaurant-cover.jpg') center/cover;
+}
+.hero-content{position:relative}
+.brand{color:var(--gold);font-size:13px;letter-spacing:5px;font-weight:900}
+.hero h1{font-size:clamp(36px,7vw,65px);margin:14px 0 5px;font-weight:900}
+.hero h1 span{color:var(--gold)}
+.hero p{color:#e6ded1;margin:5px 0 22px}
+.open-label{display:inline-block;border:1px solid #bca16e;padding:7px 18px;border-radius:40px;font-size:12px;color:var(--gold2)}
+.hero-meta{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:24px;color:#e8dfd1;font-size:12px}
+.hero-meta span{display:flex;align-items:center;gap:6px}
+.container{max-width:1100px;margin:auto;padding:0 18px}
+.intro{text-align:center;padding:35px 0 20px}
+.intro h2{font-size:23px;margin:0 0 8px}
+.intro p{font-size:13px;color:var(--muted);margin:0}
+.category-wrap{
+ position:sticky;top:0;z-index:20;background:rgba(16,15,13,.96);
+ backdrop-filter:blur(15px);border-bottom:1px solid var(--line);
+ padding:13px 0;
+}
+.categories{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;padding:0 18px}
+.categories::-webkit-scrollbar{display:none}
+.cat-btn{
+ flex:none;border:1px solid var(--line);background:var(--surface);
+ color:#d5cabc;padding:10px 17px;border-radius:30px;font-size:12px;
+ cursor:pointer;transition:.2s;white-space:nowrap
+}
+.cat-btn:hover,.cat-btn.active{background:var(--gold);color:#21170a;border-color:var(--gold);font-weight:800}
+.search-wrap{padding:22px 0 8px}
+.search{
+ width:100%;background:var(--surface);border:1px solid var(--line);
+ border-radius:14px;padding:14px 17px;color:white;font-size:13px;outline:none
+}
+.search:focus{border-color:var(--gold)}
+.menu-section{padding-top:28px}
+.section-heading{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.section-icon{width:43px;height:43px;border-radius:13px;background:#34291a;display:grid;place-items:center;font-size:22px}
+.section-heading h2{font-size:20px;margin:0}
+.section-heading p{font-size:11px;color:var(--muted);margin:3px 0 0}
+.section-heading:after{content:"";height:1px;background:var(--line);flex:1}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.food-card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:17px;overflow:hidden;transition:.25s;min-width:0}
+.food-card:hover{transform:translateY(-3px);border-color:#80643b}
+.food-card img{width:100%;height:175px;object-fit:cover;background:var(--surface2);display:block;transition:transform .35s}.food-card:hover img{transform:scale(1.035)}
+.food-info{padding:13px 14px 15px;display:flex;flex-direction:column;flex:1}
+.food-name{font-size:15px;font-weight:800;margin-bottom:5px}
+.food-desc{font-size:11px;color:var(--muted);line-height:1.9;flex:1}
+.food-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px}
+.price{font-size:14px;color:var(--gold);font-weight:900;white-space:nowrap}
+.unit{font-size:9px;color:var(--muted);font-weight:400}
+.tag{font-size:9px;background:#352b1d;color:var(--gold2);padding:5px 9px;border-radius:30px;white-space:nowrap}
+.promo{margin:42px 0;background:linear-gradient(110deg,#47351e,#201a13);border:1px solid #71552e;border-radius:20px;padding:25px;text-align:center}
+.promo strong{color:var(--gold2);font-size:19px}
+.promo p{font-size:12px;color:#e1d4c1;margin-bottom:0}
+.footer{margin-top:55px;background:#191612;border-top:1px solid var(--line);padding:35px 18px;text-align:center}
+.footer .brand{font-size:15px}
+.footer p{color:var(--muted);font-size:11px;line-height:2}
+.footer small{color:#766d62}
+.empty{display:none;text-align:center;padding:35px 15px;color:var(--muted);font-size:13px;background:var(--surface);border:1px dashed var(--line);border-radius:14px;margin:20px 0}
+@media(min-width:750px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.food-card img{height:195px}}
+@media(max-width:430px){
+ .container{padding:0 12px}
+ .grid{gap:10px}
+ .food-card img{height:125px}
+ .food-info{padding:10px}
+ .food-name{font-size:13px}
+ .food-desc{font-size:10px}
+ .price{font-size:12px}
+ .tag{font-size:8px}
+ .hero{min-height:300px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+ <div class="hero-content">
+  <div class="brand">AMIRI RESTAURANT</div>
+  <h1>رستوران <span>امیری</span></h1>
+  <p>طعم اصالت، لذت یک انتخاب متفاوت</p>
+  <div class="open-label">✦ منوی دیجیتال اختصاصی ✦</div>
+  <div class="hero-meta">
+   <span>🍽 غذاهای تازه و باکیفیت</span>
+   <span>🕒 همه‌روزه ۱۲ تا ۲۳</span>
+   <span>📍 پذیرایی از شما با عشق</span>
+  </div>
+ </div>
+</header>
+
+<div class="intro">
+ <div class="brand">WELCOME TO AMIRI</div>
+ <h2>چی میل داری؟</h2>
+ <p>از بین طعم‌های خوشمزه ما انتخاب کن</p>
+</div>
+
+<nav class="category-wrap">
+ <div class="categories" id="categories">
+  <button class="cat-btn active" data-target="pizza">🍕 پیتزا</button>
+  <button class="cat-btn" data-target="burger">🍔 برگر</button>
+  <button class="cat-btn" data-target="sandwich">🥪 ساندویچ</button>
+  <button class="cat-btn" data-target="iranian">🍚 غذای ایرانی</button>
+  <button class="cat-btn" data-target="fried">🍗 سوخاری</button>
+  <button class="cat-btn" data-target="salad">🥗 سالاد</button>
+  <button class="cat-btn" data-target="appetizer">🍟 پیش‌غذا</button>
+  <button class="cat-btn" data-target="drink">🥤 نوشیدنی</button>
+  <button class="cat-btn" data-target="dessert">🍰 دسر</button>
+ </div>
+</nav>
+
+<main class="container">
+ <div class="search-wrap">
+  <input class="search" id="search" type="search" autocomplete="off" placeholder="🔍 نام غذا یا دسته‌بندی را جستجو کن...">
+ </div>
+
+ <section class="menu-section" id="pizza">
+  <div class="section-heading"><div class="section-icon">🍕</div><div><h2>پیتزاها</h2><p>خمیر تازه، پنیر کش‌دار و طعمی فراموش‌نشدنی</p></div></div>
+  <div class="grid">
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/pizza/pizza-mix.jpg" alt="پیتزا مخصوص" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">پیتزا مخصوص امیری</div><div class="food-desc">گوشت، مرغ، قارچ، فلفل دلمه‌ای، زیتون و پنیر مخصوص</div><div class="food-bottom"><span class="price">۷۹۰٬۰۰۰ <span class="unit">تومان</span></span><span class="tag">پیشنهاد ویژه</span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/pizza/pizza-pepperoni.jpg" alt="پیتزا پپرونی" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">پیتزا پپرونی</div><div class="food-desc">پپرونی، پنیر موزارلا، سس گوجه و ادویه ایتالیایی</div><div class="food-bottom"><span class="price">۷۲۰٬۰۰۰ <span class="unit">تومان</span></span><span class="tag">پرطرفدار</span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/pizza/pizza-meat.jpg" alt="پیتزا گوشت" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">پیتزا گوشت و قارچ</div><div class="food-desc">گوشت طعم‌دار، قارچ تازه و پنیر فراوان</div><div class="food-bottom"><span class="price">۷۶۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/pizza/pizza-chicken.jpg" alt="پیتزا مرغ" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">پیتزا چیکن آلفردو</div><div class="food-desc">مرغ گریل، قارچ، سس آلفردو و پنیر</div><div class="food-bottom"><span class="price">۶۹۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/pizza/pizza-vegetable.jpg" alt="پیتزا سبزیجات" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">پیتزا سبزیجات</div><div class="food-desc">قارچ، ذرت، فلفل دلمه‌ای، زیتون و پنیر</div><div class="food-bottom"><span class="price">۵۸۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/pizza/pizza-cheese.jpg" alt="پیتزا مارگاریتا" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">پیتزا مارگاریتا</div><div class="food-desc">سس گوجه، پنیر موزارلا و ریحان تازه</div><div class="food-bottom"><span class="price">۵۴۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+  </div>
+ </section>
+
+ <section class="menu-section" id="burger">
+  <div class="section-heading"><div class="section-icon">🍔</div><div><h2>برگرها</h2><p>برگرهای آبدار با گوشت تازه</p></div></div>
+  <div class="grid">
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/burger/burger-cheese.jpg" alt="چیزبرگر" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">چیزبرگر کلاسیک</div><div class="food-desc">گوشت ۱۵۰ گرمی، پنیر چدار، کاهو و گوجه</div><div class="food-bottom"><span class="price">۵۲۰٬۰۰۰ <span class="unit">تومان</span></span><span class="tag">محبوب</span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/burger/burger-double.jpg" alt="دبل برگر" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">دبل برگر</div><div class="food-desc">دو لایه گوشت، پنیر چدار و سس مخصوص</div><div class="food-bottom"><span class="price">۷۲۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/burger/burger-mushroom.jpg" alt="قارچ برگر" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">ماشروم برگر</div><div class="food-desc">گوشت گریل، قارچ، پنیر و سس خامه‌ای</div><div class="food-bottom"><span class="price">۵۹۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/burger/burger-chicken.jpg" alt="رویال برگر" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">رویال برگر</div><div class="food-desc">گوشت ویژه، ژامبون، پنیر و تخم‌مرغ</div><div class="food-bottom"><span class="price">۶۸۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+  </div>
+ </section>
+
+ <section class="menu-section" id="sandwich">
+  <div class="section-heading"><div class="section-icon">🥪</div><div><h2>ساندویچ‌ها</h2><p>ساندویچ‌های گرم و خوشمزه</p></div></div>
+  <div class="grid">
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/sandwich/sandwich-hotdog.jpg" alt="هات داگ" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">هات‌داگ ویژه</div><div class="food-desc">هات‌داگ، قارچ، پنیر، خیارشور و سس مخصوص</div><div class="food-bottom"><span class="price">۴۳۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/sandwich/sandwich-chicken.jpg" alt="ساندویچ مرغ" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">ساندویچ فیله مرغ</div><div class="food-desc">فیله مرغ گریل، کاهو، گوجه و سس مخصوص</div><div class="food-bottom"><span class="price">۴۹۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/sandwich/sandwich-steak.jpg" alt="ساندویچ رست بیف" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">رست بیف</div><div class="food-desc">گوشت گوساله، قارچ، پنیر و سس مخصوص</div><div class="food-bottom"><span class="price">۷۹۰٬۰۰۰ <span class="unit">تومان</span></span><span class="tag">ویژه</span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/sandwich/sandwich-special.jpg" alt="بندری" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">ساندویچ بندری</div><div class="food-desc">سوسیس، پیاز، رب گوجه و ادویه جنوبی</div><div class="food-bottom"><span class="price">۳۴۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+  </div>
+ </section>
+
+ <section class="menu-section" id="iranian">
+  <div class="section-heading"><div class="section-icon">🍚</div><div><h2>غذاهای ایرانی</h2><p>عطر و طعم غذای اصیل ایرانی</p></div></div>
+  <div class="grid">
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/iranian/kebab-kobideh.jpg" alt="کباب کوبیده" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">چلوکباب کوبیده</div><div class="food-desc">دو سیخ کوبیده، برنج ایرانی، گوجه و کره</div><div class="food-bottom"><span class="price">۶۹۰٬۰۰۰ <span class="unit">تومان</span></span><span class="tag">اصیل</span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/iranian/kebab-jujeh.jpg" alt="جوجه کباب" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">چلو جوجه زعفرانی</div><div class="food-desc">جوجه مزه‌دار شده، برنج زعفرانی و گوجه کبابی</div><div class="food-bottom"><span class="price">۶۵۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/iranian/ghormeh-sabzi.jpg" alt="قرمه سبزی" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">چلو قرمه‌سبزی</div><div class="food-desc">خورشت جاافتاده با گوشت و لوبیا قرمز</div><div class="food-bottom"><span class="price">۴۸۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/iranian/gheimeh.jpg" alt="قیمه" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">چلو خورشت قیمه</div><div class="food-desc">خورشت قیمه با سیب‌زمینی خلالی و برنج</div><div class="food-bottom"><span class="price">۴۶۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/iranian/zereshk-polo.jpg" alt="زرشک پلو" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">زرشک‌پلو با مرغ</div><div class="food-desc">مرغ مجلسی، برنج زعفرانی و زرشک</div><div class="food-bottom"><span class="price">۵۳۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/iranian/baghali-polo.jpg" alt="عدس پلو" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">عدس‌پلو مجلسی</div><div class="food-desc">عدس، برنج، کشمش و پیازداغ</div><div class="food-bottom"><span class="price">۴۳۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+  </div>
+ </section>
+
+ <section class="menu-section" id="fried">
+  <div class="section-heading"><div class="section-icon">🍗</div><div><h2>سوخاری‌ها</h2><p>ترد و طلایی، تازه از سرخ‌کن</p></div></div>
+  <div class="grid">
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/fried/fried-chicken.jpg" alt="مرغ سوخاری" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">مرغ سوخاری ۲ تکه</div><div class="food-desc">دو تکه مرغ کریسپی با سیب‌زمینی و سس</div><div class="food-bottom"><span class="price">۵۹۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/fried/chicken-wings.jpg" alt="استریپس" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">فیله استریپس ۴ تکه</div><div class="food-desc">فیله مرغ سوخاری با دیپ مخصوص</div><div class="food-bottom"><span class="price">۶۸۰٬۰۰۰ <span class="unit">تومان</span></span><span class="tag">پرطرفدار</span></div></div></article>
+  </div>
+ </section>
+
+ <section class="menu-section" id="salad">
+  <div class="section-heading"><div class="section-icon">🥗</div><div><h2>سالادها</h2><p>تازه، سبک و خوش‌طعم</p></div></div>
+  <div class="grid">
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/salad/salad-caesar.jpg" alt="سالاد سزار" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">سالاد سزار</div><div class="food-desc">کاهو، مرغ گریل، نان کروتان، پارمزان و سس سزار</div><div class="food-bottom"><span class="price">۴۲۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/salad/salad-vegetable.jpg" alt="سالاد فصل" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">سالاد فصل</div><div class="food-desc">کاهو، گوجه، خیار، هویج و سس مخصوص</div><div class="food-bottom"><span class="price">۲۲۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/salad/salad-greek.jpg" alt="سالاد یونانی" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">سالاد یونانی</div><div class="food-desc">خیار، گوجه، زیتون، پنیر فتا و روغن زیتون</div><div class="food-bottom"><span class="price">۳۴۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+  </div>
+ </section>
+
+ <section class="menu-section" id="appetizer">
+  <div class="section-heading"><div class="section-icon">🍟</div><div><h2>پیش‌غذا و دورچین</h2><p>برای کامل‌تر شدن انتخابت</p></div></div>
+  <div class="grid">
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/appetizer/fries.jpg" alt="سیب زمینی" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">سیب‌زمینی سرخ‌کرده</div><div class="food-desc">سیب‌زمینی تازه با ادویه مخصوص</div><div class="food-bottom"><span class="price">۲۵۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/appetizer/fries.jpg" alt="چیز فرایز" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">چیز فرایز</div><div class="food-desc">سیب‌زمینی، پنیر چدار و سس مخصوص</div><div class="food-bottom"><span class="price">۳۵۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/appetizer/mozzarella-sticks.jpg" alt="قارچ سوخاری" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">قارچ سوخاری</div><div class="food-desc">قارچ تازه با پوشش سوخاری ترد</div><div class="food-bottom"><span class="price">۲۹۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/appetizer/garlic-bread.jpg" alt="سوپ" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">سوپ روز</div><div class="food-desc">سوپ گرم و تازه روز</div><div class="food-bottom"><span class="price">۱۸۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+  </div>
+ </section>
+
+ <section class="menu-section" id="drink">
+  <div class="section-heading"><div class="section-icon">🥤</div><div><h2>نوشیدنی‌ها</h2><p>یک انتخاب خنک کنار غذای شما</p></div></div>
+  <div class="grid">
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/drink/cola.jpg" alt="نوشابه" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">نوشابه قوطی</div><div class="food-desc">کوکاکولا، فانتا یا اسپرایت</div><div class="food-bottom"><span class="price">۱۰۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/drink/lemonade.jpg" alt="لیموناد" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">لیموناد طبیعی</div><div class="food-desc">لیمو تازه، نعنا و یخ</div><div class="food-bottom"><span class="price">۱۵۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/drink/orange-juice.jpg" alt="چای" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">چای ایرانی</div><div class="food-desc">چای تازه‌دم همراه نبات</div><div class="food-bottom"><span class="price">۷۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/drink/mojito.jpg" alt="موهیتو" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">موهیتو</div><div class="food-desc">نعنا، لیمو، سودا و یخ</div><div class="food-bottom"><span class="price">۱۸۰٬۰۰۰ <span class="unit">تومان</span></span><span class="tag">خنک و تازه</span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/drink/milkshake.jpg" alt="دوغ" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">دوغ سنتی</div><div class="food-desc">دوغ خنک و نعناعی</div><div class="food-bottom"><span class="price">۸۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+  </div>
+ </section>
+
+ <section class="menu-section" id="dessert">
+  <div class="section-heading"><div class="section-icon">🍰</div><div><h2>دسرها</h2><p>یک پایان شیرین برای غذای خوشمزه</p></div></div>
+  <div class="grid">
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/dessert/chocolate-cake.jpg" alt="کیک شکلاتی" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">کیک شکلاتی</div><div class="food-desc">کیک شکلاتی با سس مخصوص</div><div class="food-bottom"><span class="price">۲۲۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/dessert/cheesecake.jpg" alt="تیرامیسو" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">تیرامیسو</div><div class="food-desc">دسر ایتالیایی با قهوه و خامه</div><div class="food-bottom"><span class="price">۲۶۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+   <article class="food-card"><img loading="lazy" decoding="async" src="images/dessert/ice-cream.jpg" alt="بستنی" onerror="this.onerror=null;this.style.visibility='hidden'"><div class="food-info"><div class="food-name">بستنی ویژه</div><div class="food-desc">بستنی اسکوپی با شکلات و مغزها</div><div class="food-bottom"><span class="price">۱۹۰٬۰۰۰ <span class="unit">تومان</span></span></div></div></article>
+  </div>
+ </section>
+
+ <div class="promo">
+  <strong>❤️ از انتخاب شما سپاسگزاریم</strong>
+  <p>رستوران امیری؛ جایی برای ساختن خاطره‌های خوشمزه</p>
+ </div>
+</main>
+
+<footer class="footer">
+ <div class="brand">AMIRI RESTAURANT</div>
+ <p>کیفیت، تازگی و رضایت شما اولویت ماست.</p>
+ <small>منوی دیجیتال طراحی‌شده با MENU PRO</small>
+</footer>
+
+<script>
+const buttons=document.querySelectorAll('.cat-btn');
+buttons.forEach(btn=>{
+ btn.addEventListener('click',()=>{
+  const section=document.getElementById(btn.dataset.target);
+  if(section){
+   section.scrollIntoView({behavior:'smooth',block:'start'});
+   buttons.forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+  }
+ });
+});
+
+const sections=[...document.querySelectorAll('.menu-section')];
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting){
+   buttons.forEach(b=>{
+    b.classList.toggle('active',b.dataset.target===entry.target.id);
+   });
+  }
+ });
+},{rootMargin:'-25% 0px -65% 0px'});
+sections.forEach(section=>observer.observe(section));
+
+document.getElementById('search').addEventListener('input',function(){
+ const query=this.value.trim().toLowerCase();
+ document.querySelectorAll('.food-card').forEach(card=>{
+  card.style.display=card.innerText.toLowerCase().includes(query)?'':'none';
+ });
+ sections.forEach(section=>{
+  const visible=[...section.querySelectorAll('.food-card')].some(card=>card.style.display!=='none');
+  section.style.display=visible?'':'none';
+ });
+});
+</script>
+</body>
+</html>
